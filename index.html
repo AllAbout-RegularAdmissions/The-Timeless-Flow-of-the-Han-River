@@ -193,9 +193,8 @@
   </div>
 
   <script>
-    // 1) 네가 준 UNIVERSITY_DATA 그대로 넣음
+    // 1) 대학 데이터 (네가 준 가/나군 데이터 정리)
     const UNIVERSITY_DATA = [
-          const UNIVERSITY_DATA = [
       {
         name: "고려대",
         category: "일반",
@@ -468,10 +467,9 @@
       }
     ];
 
-    // 2) 허용 이메일 목록 (실제 이메일 넣기)
+    // 2) 허용 이메일 목록 (여기만 네 리스트로 교체하면 됨)
     const ALLOWED_EMAILS = [
-  "what2z@naver.com",
-  "avushen@naver.com",
+     "what2z@naver.com",
   "sj730426@naver.com",
   "nexty@naver.com",
   "leeundersky@naver.com",
@@ -1260,10 +1258,12 @@
   "frogmin74@naver.com",
   "edithjins@gmail.com",
   "mhnkm@naver.com",  
-].map(e => e.toLowerCase().trim());
+    ].map(e => e.toLowerCase().trim());
 
+    // 3) 접속 종료 날짜
     const END_DATE = new Date("2025-12-30T23:59:59+09:00");
 
+    // 4) 공통 DOM
     const loginForm     = document.getElementById("login-form");
     const loginMessage  = document.getElementById("login-message");
     const loginCard     = document.getElementById("login-card");
@@ -1283,6 +1283,7 @@
     let currentMedSub       = "all";
     let currentGeneralTrack = "all";
 
+    // ========= 기간 만료 체크 =========
     function checkExpired() {
       const now = new Date();
       if (now > END_DATE) {
@@ -1295,6 +1296,7 @@
     }
     checkExpired();
 
+    // ========= 로그인 처리 =========
     if (loginForm) {
       loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -1318,10 +1320,12 @@
           return;
         }
 
+        // 로그인 성공
         loginMessage.style.display = "none";
         loginCard.style.display = "none";
         contentCard.style.display = "block";
 
+        // 초기 필터 상태로 결과 표시
         currentGroup        = "all";
         currentGun          = "all";
         currentMedSub       = "all";
@@ -1333,6 +1337,7 @@
       });
     }
 
+    // ========= 필터 로직 =========
     function filterUniversities() {
       return UNIVERSITY_DATA.filter(univ => {
         const category = univ.category || "";
@@ -1390,6 +1395,7 @@
       renderUnivResults(results);
     }
 
+    // ========= 버튼 이벤트들 =========
     groupButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         currentGroup = btn.dataset.group;
@@ -1455,14 +1461,9 @@
       });
     });
 
-    // 개발 테스트용으로, 로그인 없이 바로 보고 싶으면 이 두 줄 잠깐 풀어도 됨
+    // 개발 테스트용으로 이 두 줄 잠깐 열어두면 로그인 없이도 바로 결과 확인 가능
     // contentCard.style.display = "block";
     // renderUnivResults(UNIVERSITY_DATA);
   </script>
 </body>
 </html>
-
-
-
-
-
